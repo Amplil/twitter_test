@@ -4,7 +4,7 @@ $get_num=3; // 表示するDMの数を指定
 echo "表示するユーザーID: $user_id <br>";
 echo "表示するDMの数: $get_num <br><br>";
 
-$data = json_decode(file_get_contents("../local_data/twitter_data.json"),true); // プライベートデータの読み込み（非ハードコード化）
+$data = json_decode(file_get_contents("../private_data/twitter_data.json"),true); // プライベートデータの読み込み（非ハードコード化）
 
 // パラメータの設定
 $signature_key = rawurlencode( $data["api_secret"] )."&".rawurlencode( $data["access_token_secret"] );
@@ -49,6 +49,7 @@ $events=$response['events'];
 
 // 指定のDMのみを抽出
 $counter = 0;
+$dm_message=[]; // メッセージを格納する配列
 foreach($events as $event){
   if($user_id===$event['message_create']['sender_id']){
     $counter++;
@@ -61,9 +62,7 @@ foreach($events as $event){
   }
 }
 if($counter<$get_num){
-  echo "これ以上 $user_id からのメッセージは見つかりませんでした。";
+  echo "これ以上 $user_id からのメッセージは見つかりませんでした。<br><br>";
 }
-else{
-  echo "dm_messageの中身:<br>";
-  var_dump( $dm_message );
-}
+echo "dm_messageの中身:<br>";
+var_dump( $dm_message );
