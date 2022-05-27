@@ -1,5 +1,6 @@
 <?php
 $data = json_decode(file_get_contents("../local_data/twitter_data.json"),true); // jsonファイルの読み込み（非ハードコード化）
+//var_dump($data);
 // エンドポイントを指定
 $base_url = 'https://api.twitter.com/2/tweets/search/recent';
 
@@ -13,7 +14,7 @@ $query = [
 $url = $base_url .'?'. http_build_query($query);
 
 // ヘッダ生成
-$token = $data['token'];  //Bearer Token
+$token = $data['bearer_token'];  //Bearer Token
 //var_dump($token);
 $header = [
   'Authorization: Bearer ' . $token,
@@ -34,6 +35,7 @@ $result = json_decode($response, true);
 
 curl_close($curl);
 
+var_dump($result);
 //結果のうち最新3件を出力
 for ($i = 0; $i < 3; $i++) {
   $name = $result['includes']['users'][$i]['name'];
