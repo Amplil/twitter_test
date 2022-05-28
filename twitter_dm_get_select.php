@@ -1,5 +1,5 @@
 <?php
-$user_id="115639376"; // 表示するユーザーIDを指定（ローソンのIDを指定）
+$user_id="115639376"; // 表示するユーザーIDを指定
 $get_num=3; // 表示するDMの数を指定
 echo "表示するユーザーID: $user_id <br>";
 echo "表示するDMの数: $get_num <br><br>";
@@ -54,7 +54,7 @@ foreach($events as $event){
   if($user_id===$event['message_create']['sender_id']){
     $counter++;
     $text=$event['message_create']['message_data']['text'];
-    echo "メッセージ $counter :<br> $text <br><br>";
+    echo "メッセージ $counter :<br> ".nl2br($text)." <br><br>";
     $dm_message[]=$text;
   }
   if($counter>=$get_num){
